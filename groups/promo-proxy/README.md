@@ -1,4 +1,4 @@
-# aws-promo-terraform
+# aws-promo-proxy-terraform
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements

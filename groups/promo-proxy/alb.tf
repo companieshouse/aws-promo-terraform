@@ -119,7 +119,7 @@ module "promo_proxy_alb" {
   ]
   target_groups = [
     {
-      name                 = "tg-${var.application}-ebilling-01"
+      name                 = "tg-promo-ebilling-01"
       backend_protocol     = "HTTP"
       backend_port         = var.ebilling_service_port
       target_type          = "ip"
@@ -140,7 +140,7 @@ module "promo_proxy_alb" {
       }
     },
     {
-      name                 = "tg-${var.application}-epayments-live-fwk-01"
+      name                 = "tg-promo-epayments-live-fwk-01"
       backend_protocol     = "HTTP"
       backend_port         = var.epayments_service_port
       target_type          = "ip"
@@ -161,7 +161,7 @@ module "promo_proxy_alb" {
       }
     },
     {
-      name                 = "tg-${var.application}-epayments-live-01"
+      name                 = "tg-promo-epayments-live-01"
       backend_protocol     = "HTTP"
       backend_port         = var.epayments_service_port
       target_type          = "ip"
@@ -182,7 +182,7 @@ module "promo_proxy_alb" {
       }
     },
     {
-      name                 = "tg-${var.application}-epayments-test-01"
+      name                 = "tg-promo-epayments-test-01"
       backend_protocol     = "HTTP"
       backend_port         = var.epayments_service_port
       target_type          = "ip"

@@ -7,7 +7,7 @@ account = "shared"
 region  = "euw2"
 
 # Application details
-application = "promo"
+application = "promo-proxy"
 environment = "live"
 
 # FE Load Balancer
