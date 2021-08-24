@@ -8,7 +8,7 @@ region  = "euw2"
 
 # Application details
 application = "promo-proxy"
-environment = "live"
+environment = "shared-services"
 
 # FE Load Balancer
 public_allow_cidr_blocks = [

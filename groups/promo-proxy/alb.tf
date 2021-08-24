@@ -237,6 +237,16 @@ resource "aws_lb_target_group_attachment" "ebilling" {
   ]
 }
 
+resource "aws_lb_target_group_attachment" "epayments_live_fwk" {
+  target_group_arn = [for group in module.promo_proxy_alb.target_group_arns : group if can(regex("epayments-live-fwk", group))]
+  target_id        = var.epayments_live_server_ip
+  port             = var.epayments_service_port
+
+  depends_on = [
+    module.promo_proxy_alb
+  ]
+}
+
 resource "aws_lb_target_group_attachment" "epayments_live" {
   target_group_arn = [for group in module.promo_proxy_alb.target_group_arns : group if can(regex("epayments-live", group))]
   target_id        = var.epayments_live_server_ip
