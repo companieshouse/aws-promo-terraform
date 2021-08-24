@@ -1,0 +1,17 @@
+aws_profile = "shared-services-eu-west-2"
+aws_region  = "eu-west-2"
+aws_account = "shared-services"
+
+# shorthand
+account = "shared"
+region  = "euw2"
+
+# Application details
+application = "promo-proxy"
+environment = "shared-services"
+
+# FE Load Balancer
+public_allow_cidr_blocks = [
+  "0.0.0.0/0"
+]
+
