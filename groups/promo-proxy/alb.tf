@@ -85,7 +85,8 @@ module "promo_proxy_alb" {
         }
       ]
       conditions = [{
-        host_headers = ["epayments.${var.domain_name}/payments-framework/payments-live"]
+        host_headers  = ["epayments.${var.domain_name}"],
+        path_patterns = ["/payments-framework/payments-live"]
       }]
     },
     {
@@ -99,7 +100,8 @@ module "promo_proxy_alb" {
         }
       ]
       conditions = [{
-        host_headers = ["epayments.${var.domain_name}/payments-live"]
+        host_headers = ["epayments.${var.domain_name}"],
+        path_pattern = ["/payments-live"]
       }]
     },
     {
@@ -113,7 +115,8 @@ module "promo_proxy_alb" {
         }
       ]
       conditions = [{
-        host_headers = ["epayments.${var.domain_name}/payments-test"]
+        host_headers = ["epayments.${var.domain_name}"],
+        path_pattern = ["/payments-test"]
       }]
     }
   ]
@@ -228,7 +231,7 @@ module "alb_proxy_metrics" {
 # ALB Target Group Attachments
 #--------------------------------------------
 resource "aws_lb_target_group_attachment" "ebilling" {
-  target_group_arn = [for group in module.promo_proxy_alb.target_group_arns : group if can(regex("ebilling", group))]
+  target_group_arn = coalesce([for group in module.promo_proxy_alb.target_group_arns : group if can(regex("ebilling", group))]...)
   target_id        = var.ebilling_server_ip
   port             = var.ebilling_service_port
 
@@ -238,7 +241,7 @@ resource "aws_lb_target_group_attachment" "ebilling" {
 }
 
 resource "aws_lb_target_group_attachment" "epayments_live_fwk" {
-  target_group_arn = [for group in module.promo_proxy_alb.target_group_arns : group if can(regex("epayments-live-fwk", group))]
+  target_group_arn = coalesce([for group in module.promo_proxy_alb.target_group_arns : group if can(regex("epayments-live-fwk", group))]...)
   target_id        = var.epayments_live_server_ip
   port             = var.epayments_service_port
 
@@ -248,7 +251,7 @@ resource "aws_lb_target_group_attachment" "epayments_live_fwk" {
 }
 
 resource "aws_lb_target_group_attachment" "epayments_live" {
-  target_group_arn = [for group in module.promo_proxy_alb.target_group_arns : group if can(regex("epayments-live", group))]
+  target_group_arn = coalesce([for group in module.promo_proxy_alb.target_group_arns : group if can(regex("epayments-live", group))]...)
   target_id        = var.epayments_live_server_ip
   port             = var.epayments_service_port
 
@@ -258,7 +261,7 @@ resource "aws_lb_target_group_attachment" "epayments_live" {
 }
 
 resource "aws_lb_target_group_attachment" "epayments-test" {
-  target_group_arn = [for group in module.promo_proxy_alb.target_group_arns : group if can(regex("epayments-test", group))]
+  target_group_arn = coalesce([for group in module.promo_proxy_alb.target_group_arns : group if can(regex("epayments-test", group))]...)
   target_id        = var.epayments_test_server_ip
   port             = var.epayments_service_port
 
