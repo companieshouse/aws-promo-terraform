@@ -71,7 +71,8 @@ module "promo_proxy_alb" {
         }
       ]
       conditions = [{
-        host_headers = ["ebilling.${var.domain_name}"]
+        host_headers  = ["ebilling.${var.domain_name}"],
+        path_patterns = ["/customer-portal"]
       }]
     },
     {
@@ -86,7 +87,7 @@ module "promo_proxy_alb" {
       ]
       conditions = [{
         host_headers  = ["epayments.${var.domain_name}"],
-        path_patterns = ["/payments-framework/payments-live"]
+        path_patterns = ["/payments-framework/payments-live/*"]
       }]
     },
     {
@@ -100,8 +101,8 @@ module "promo_proxy_alb" {
         }
       ]
       conditions = [{
-        host_headers = ["epayments.${var.domain_name}"],
-        path_pattern = ["/payments-live"]
+        host_headers  = ["epayments.${var.domain_name}"],
+        path_patterns = ["/payments-live/*"]
       }]
     },
     {
@@ -115,8 +116,8 @@ module "promo_proxy_alb" {
         }
       ]
       conditions = [{
-        host_headers = ["epayments.${var.domain_name}"],
-        path_pattern = ["/payments-test"]
+        host_headers  = ["epayments.${var.domain_name}"],
+        path_patterns = ["/payments-test/*"]
       }]
     }
   ]
