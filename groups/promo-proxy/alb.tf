@@ -72,7 +72,7 @@ module "promo_proxy_alb" {
       ]
       conditions = [{
         host_headers  = ["ebilling.${var.domain_name}"],
-        path_patterns = ["/customer-portal"]
+        path_patterns = ["/customer-portal/"]
       }]
     },
     {
@@ -87,7 +87,7 @@ module "promo_proxy_alb" {
       ]
       conditions = [{
         host_headers  = ["epayments.${var.domain_name}"],
-        path_patterns = ["/payments-framework/payments-live/*"]
+        path_patterns = ["/payments-framework/payments-live/*", "/payments-live/*"]
       }]
     },
     {
@@ -98,21 +98,6 @@ module "promo_proxy_alb" {
         {
           type               = "forward"
           target_group_index = 2
-        }
-      ]
-      conditions = [{
-        host_headers  = ["epayments.${var.domain_name}"],
-        path_patterns = ["/payments-live/*"]
-      }]
-    },
-    {
-      https_listener_index = 0
-      priority             = 4
-
-      actions = [
-        {
-          type               = "forward"
-          target_group_index = 3
         }
       ]
       conditions = [{
@@ -141,27 +126,6 @@ module "promo_proxy_alb" {
       }
       tags = {
         InstanceTargetGroupTag = "${var.application}-ebilling"
-      }
-    },
-    {
-      name                 = "tg-promo-epayments-live-fwk-01"
-      backend_protocol     = "HTTP"
-      backend_port         = var.epayments_service_port
-      target_type          = "ip"
-      deregistration_delay = 10
-      health_check = {
-        enabled             = true
-        interval            = 30
-        path                = var.health_check_path
-        port                = var.epayments_service_port
-        healthy_threshold   = 3
-        unhealthy_threshold = 3
-        timeout             = 6
-        protocol            = "HTTP"
-        matcher             = "200-399"
-      }
-      tags = {
-        InstanceTargetGroupTag = "${var.application}-epayments-live-framework"
       }
     },
     {
@@ -235,17 +199,6 @@ resource "aws_lb_target_group_attachment" "ebilling" {
   target_group_arn  = coalesce([for group in module.promo_proxy_alb.target_group_arns : group if can(regex("ebilling", group))]...)
   target_id         = var.ebilling_server_ip
   port              = var.ebilling_service_port
-  availability_zone = "all"
-
-  depends_on = [
-    module.promo_proxy_alb
-  ]
-}
-
-resource "aws_lb_target_group_attachment" "epayments_live_fwk" {
-  target_group_arn  = coalesce([for group in module.promo_proxy_alb.target_group_arns : group if can(regex("epayments-live-fwk", group))]...)
-  target_id         = var.epayments_live_server_ip
-  port              = var.epayments_service_port
   availability_zone = "all"
 
   depends_on = [
