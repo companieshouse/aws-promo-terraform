@@ -87,7 +87,7 @@ module "promo_proxy_alb" {
       ]
       conditions = [{
         host_headers  = ["epayments.${var.domain_name}"],
-        path_patterns = ["/payments-framework/payments-live/*", "/payments-live/*"]
+        path_patterns = ["/payments-live/*"]
       }]
     },
     {

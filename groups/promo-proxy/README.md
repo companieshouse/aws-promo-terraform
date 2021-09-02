@@ -51,7 +51,7 @@
 | <a name="input_ebilling_server_ip"></a> [ebilling\_server\_ip](#input\_ebilling\_server\_ip) | Ebilling target server IP Address | `string` | `"172.16.200.179"` | no |
 | <a name="input_ebilling_service_port"></a> [ebilling\_service\_port](#input\_ebilling\_service\_port) | Ebilling Target group backend port | `number` | `8085` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The name of the environment | `string` | n/a | yes |
-| <a name="input_epayments_live_server_ip"></a> [epayments\_live\_server\_ip](#input\_epayments\_live\_server\_ip) | Epayments live target server IP Address | `string` | `"172.16.200.172"` | no |
+| <a name="input_epayments_live_server_ip"></a> [epayments\_live\_server\_ip](#input\_epayments\_live\_server\_ip) | Epayments live target server IP Address | `string` | `"172.16.200.174"` | no |
 | <a name="input_epayments_service_port"></a> [epayments\_service\_port](#input\_epayments\_service\_port) | Epayments Target group backend port | `number` | `9000` | no |
 | <a name="input_epayments_test_server_ip"></a> [epayments\_test\_server\_ip](#input\_epayments\_test\_server\_ip) | Epayments test target server IP Address | `string` | `"172.16.200.173"` | no |
 | <a name="input_health_check_path"></a> [health\_check\_path](#input\_health\_check\_path) | Target group health check path | `string` | `"/"` | no |
