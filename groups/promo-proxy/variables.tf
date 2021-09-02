@@ -105,7 +105,7 @@ variable "ebilling_server_ip" {
 
 variable "epayments_live_server_ip" {
   type        = string
-  default     = "172.16.200.172"
+  default     = "172.16.200.174"
   description = "Epayments live target server IP Address"
 }
 
