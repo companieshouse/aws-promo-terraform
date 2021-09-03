@@ -1,0 +1,13 @@
+# Account details
+aws_profile = "heritage-development-eu-west-2"
+aws_region  = "eu-west-2"
+aws_account = "heritage-development"
+
+# shorthand
+account = "hdev"
+region  = "euw2"
+
+# Application details
+application = "promo"
+environment = "development"
+
