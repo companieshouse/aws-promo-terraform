@@ -4,7 +4,7 @@ module "cloudfront_promo" {
 
   comment             = "Promo Site CloudFront"
   enabled             = true
-  is_ipv6_enabled     = false
+  is_ipv6_enabled     = true
   price_class         = "PriceClass_All"
   retain_on_delete    = false
   wait_for_deployment = false
@@ -18,10 +18,6 @@ module "cloudfront_promo" {
         origin_protocol_policy = "match-viewer"
         origin_ssl_protocols   = ["TLSv1"]
       }
-    }
-
-    s3_one = {
-      domain_name = module.s3_promo_web_hosting_bucket.s3_bucket_bucket_regional_domain_name
     }
   }
 
