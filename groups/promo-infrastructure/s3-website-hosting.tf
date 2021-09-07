@@ -42,6 +42,11 @@ module "s3_promo_web_hosting_bucket" {
     index_document = "index.html"
     error_document = "index.html"
   }
+
+  logging = {
+    target_bucket = local.promo_logs_bucket_name
+    target_prefix = local.promo_s3_logs_prefix
+  }
 }
 
 # ------------------------------------------------------------------------------
