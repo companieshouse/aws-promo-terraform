@@ -11,7 +11,7 @@ module "cloudfront_promo" {
 
   origin = {
     something = {
-      domain_name = module.s3_promo_web_hosting_bucket.s3_bucket_website_domain
+      domain_name = module.s3_promo_web_hosting_bucket.s3_bucket_website_endpoint
       custom_origin_config = {
         http_port              = 80
         https_port             = 443
@@ -21,7 +21,7 @@ module "cloudfront_promo" {
     }
 
     s3_one = {
-      domain_name = module.s3_promo_web_hosting_bucket.s3_bucket_website_domain
+      domain_name = module.s3_promo_web_hosting_bucket.s3_bucket_website_endpoint
     }
   }
 
