@@ -14,7 +14,6 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 0.3, < 4.0 |
-| <a name="provider_vault"></a> [vault](#provider\_vault) | >= 2.0.0 |
 
 ## Modules
 
@@ -28,7 +27,6 @@
 | Name | Type |
 |------|------|
 | [aws_iam_policy_document.s3_promo_web_hosting_bucket_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [vault_generic_secret.security_s3_buckets](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |
 
 ## Inputs
 
