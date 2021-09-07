@@ -19,13 +19,13 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cloudfront_promo"></a> [cloudfront\_promo](#module\_cloudfront\_promo) | terraform-aws-modules/cloudfront/aws | 2.7.0 |
 | <a name="module_s3_promo_web_hosting_bucket"></a> [s3\_promo\_web\_hosting\_bucket](#module\_s3\_promo\_web\_hosting\_bucket) | terraform-aws-modules/s3-bucket/aws | 2.1.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [aws_cloudfront_distribution.s3_distribution](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution) | resource |
 | [aws_iam_policy_document.s3_promo_web_hosting_bucket_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
 ## Inputs
