@@ -10,7 +10,7 @@ module "cloudfront_promo" {
   wait_for_deployment = false
 
   origin = {
-    something = {
+    promo = {
       domain_name = module.s3_promo_web_hosting_bucket.s3_bucket_website_endpoint
       custom_origin_config = {
         http_port              = 80
@@ -26,7 +26,7 @@ module "cloudfront_promo" {
   }
 
   default_cache_behavior = {
-    target_origin_id       = "something"
+    target_origin_id       = "promo"
     viewer_protocol_policy = "allow-all"
 
     allowed_methods = ["GET", "HEAD", "OPTIONS"]
