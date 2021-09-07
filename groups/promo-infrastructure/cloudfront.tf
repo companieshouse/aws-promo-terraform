@@ -9,11 +9,6 @@ module "cloudfront_promo" {
   retain_on_delete    = false
   wait_for_deployment = false
 
-  logging_config = {
-    bucket = local.promo_logs_bucket_name
-    prefix = local.promo_cloudfront_logs_prefix
-  }
-
   origin = {
     something = {
       domain_name = module.s3_promo_web_hosting_bucket.s3_bucket_website_domain
