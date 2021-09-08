@@ -3,7 +3,7 @@ module "s3_promo_web_hosting_bucket" {
   version = "2.1.0"
 
   bucket = local.s3_promo_web_hosting_bucket
-  acl    = "public-read"
+  acl    = "private"
 
   block_public_acls       = false
   block_public_policy     = false
