@@ -57,3 +57,11 @@ variable "environment" {
   type        = string
   description = "The name of the environment"
 }
+
+# ------------------------------------------------------------------------------
+# CloudFront Variables
+# ------------------------------------------------------------------------------
+
+variable "cloudfront-authentication-user-agent" {
+  default = "V3ryS3cretString"
+}
