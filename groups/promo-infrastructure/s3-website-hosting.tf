@@ -2,10 +2,8 @@ module "s3_promo_web_hosting_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "2.1.0"
 
-  bucket        = local.s3_promo_web_hosting_bucket
-  acl           = "public-read"
-  attach_policy = "true"
-  policy        = data.aws_iam_policy_document.s3_promo_web_hosting_bucket_policy.json
+  bucket = local.s3_promo_web_hosting_bucket
+  acl    = "public-read"
 
   block_public_acls       = false
   block_public_policy     = false
@@ -47,24 +45,27 @@ module "s3_promo_web_hosting_bucket" {
 # ------------------------------------------------------------------------------
 # Policies
 # ------------------------------------------------------------------------------
-data "aws_iam_policy_document" "s3_promo_web_hosting_bucket_policy" {
-  statement {
-    sid = "PublicRead"
+resource "aws_s3_bucket_policy" "s3_promo_web_hosting_bucket_policy" {
+  bucket = module.s3_promo_web_hosting_bucket.s3_bucket_id
 
-    effect = "Allow"
+  policy = <<POLICY
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::${local.s3_promo_web_hosting_bucket}/*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:UserAgent": "${var.cloudfront-authentication-user-agent}"
+                }
+            }
 
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-
-    actions = [
-      "s3:GetObject",
-      "s3:GetObjectVersion"
+        }
     ]
-
-    resources = [
-      "arn:aws:s3:::${local.s3_promo_web_hosting_bucket}/*"
-    ]
-  }
+}
+POLICY
 }
