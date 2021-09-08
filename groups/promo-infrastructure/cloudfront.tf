@@ -41,23 +41,26 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   ordered_cache_behavior {
-    path_pattern     = "*.jpg"
+    path_pattern     = "*.shtml"
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = local.s3_origin_id
 
-    forwarded_values {
-      query_string = false
+    min_ttl                = 0
+    default_ttl            = 0
+    max_ttl                = 0
+    viewer_protocol_policy = "redirect-to-https"
+  }
 
-      cookies {
-        forward = "none"
-      }
-    }
+  ordered_cache_behavior {
+    path_pattern     = "*.html"
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+    cached_methods   = ["GET", "HEAD", "OPTIONS"]
+    target_origin_id = local.s3_origin_id
 
     min_ttl                = 0
-    default_ttl            = 3600
-    max_ttl                = 86400
-    compress               = true
+    default_ttl            = 0
+    max_ttl                = 0
     viewer_protocol_policy = "redirect-to-https"
   }
 
