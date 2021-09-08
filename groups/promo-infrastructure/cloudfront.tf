@@ -46,6 +46,14 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = local.s3_origin_id
 
+    forwarded_values {
+      query_string = false
+
+      cookies {
+        forward = "none"
+      }
+    }
+
     min_ttl                = 0
     default_ttl            = 0
     max_ttl                = 0
@@ -57,6 +65,14 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = local.s3_origin_id
+
+    forwarded_values {
+      query_string = false
+
+      cookies {
+        forward = "none"
+      }
+    }
 
     min_ttl                = 0
     default_ttl            = 0
