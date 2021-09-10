@@ -6,12 +6,15 @@ provider "aws" {
 
 
 resource "aws_wafv2_ip_set" "ipset" {
+  provider = aws.us-east
+
   name               = "promo-cf-ipset"
   description        = "Promo CloudFront IP Sets"
   scope              = "CLOUDFRONT"
   ip_address_version = "IPV4"
   addresses          = var.promo_cf_ipsets
 }
+
 
 /*
 module "waf" {
