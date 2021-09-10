@@ -15,19 +15,81 @@ resource "aws_wafv2_ip_set" "ipset" {
   addresses          = var.promo_cf_ipsets
 }
 
-
-/*
-module "waf" {
+module "cf_waf" {
   providers = {
     aws = aws.us-east
   }
 
-  source = "umotif-public/waf-webaclv2/aws"
+  source  = "umotif-public/waf-webaclv2/aws"
   version = "~> 3.1.0"
 
-  name_prefix = "test-waf-setup-cloudfront"
-  scope = "CLOUDFRONT"
+  name_prefix            = "test-waf-setup-cloudfront"
+  scope                  = "CLOUDFRONT"
   create_alb_association = false
-  ...
+
+  allow_default_action = true # set to allow if not specified
+
+  visibility_config = {
+    metric_name = "promo-cf-waf-main-metrics"
+  }
+
+  rules = [
+    {
+      name     = "AWSManagedRulesCommonRuleSet-rule-1"
+      priority = "1"
+
+      override_action = "none"
+
+      visibility_config = {
+        metric_name = "AWSManagedRulesCommonRuleSet-metric"
+      }
+
+      managed_rule_group_statement = {
+        name        = "AWSManagedRulesCommonRuleSet"
+        vendor_name = "AWS"
+        excluded_rule = [
+          "SizeRestrictions_QUERYSTRING",
+          "SizeRestrictions_BODY",
+          "GenericRFI_QUERYARGUMENTS"
+        ]
+      }
+    },
+    {
+      name     = "AWSManagedRulesKnownBadInputsRuleSet-rule-2"
+      priority = "2"
+
+      override_action = "count"
+
+      visibility_config = {
+        metric_name = "AWSManagedRulesKnownBadInputsRuleSet-metric"
+      }
+
+      managed_rule_group_statement = {
+        name        = "AWSManagedRulesKnownBadInputsRuleSet"
+        vendor_name = "AWS"
+      }
+    },
+    {
+      name     = "AWSManagedRulesPHPRuleSet-rule-3"
+      priority = "3"
+
+      override_action = "none"
+
+      visibility_config = {
+        cloudwatch_metrics_enabled = false
+        metric_name                = "AWSManagedRulesPHPRuleSet-metric"
+        sampled_requests_enabled   = false
+      }
+
+      managed_rule_group_statement = {
+        name        = "AWSManagedRulesPHPRuleSet"
+        vendor_name = "AWS"
+      }
+    }
+  ]
+
+  tags = {
+    "Name" = "${var.application}-cf-waf"
+    "Env"  = var.environment
+  }
 }
-*/

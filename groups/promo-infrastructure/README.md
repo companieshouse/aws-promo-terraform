@@ -20,6 +20,7 @@
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_cf_waf"></a> [cf\_waf](#module\_cf\_waf) | umotif-public/waf-webaclv2/aws | ~> 3.1.0 |
 | <a name="module_s3_promo_web_hosting_bucket"></a> [s3\_promo\_web\_hosting\_bucket](#module\_s3\_promo\_web\_hosting\_bucket) | terraform-aws-modules/s3-bucket/aws | 2.1.0 |
 
 ## Resources
