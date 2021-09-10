@@ -65,3 +65,20 @@ variable "environment" {
 variable "cloudfront-authentication-user-agent" {
   default = "V3ryS3cretString"
 }
+
+# ------------------------------------------------------------------------------
+# CloudFront WAF Variables
+# ------------------------------------------------------------------------------
+
+/*
+variable "promo_cf_ipsets" {
+  type        = list(any)
+  description = "Promo CloudFronti IP Sets for lower envs"
+  default     = []
+}
+*/
+
+variable "promo_cf_ipsets" {
+  type        = list(any)
+  description = "Promo CloudFronti IP Sets for lower envs"
+}
