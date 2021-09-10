@@ -14,6 +14,7 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 0.3, < 4.0 |
+| <a name="provider_aws.us-east"></a> [aws.us-east](#provider\_aws.us-east) | >= 0.3, < 4.0 |
 
 ## Modules
 
