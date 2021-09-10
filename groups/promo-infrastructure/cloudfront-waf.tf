@@ -5,17 +5,12 @@ provider "aws" {
 }
 
 
-resource "aws_waf_ipset" "ipset" {
-  name = "Promo CloudFront IP Set"
-
-  dynamic "ip_set_descriptors" {
-    for_each = var.promo_cf_ipsets
-    iterator = ips
-    content {
-      type  = "IPV4"
-      value = ips.value.ip
-    }
-  }
+resource "aws_wafv2_ip_set" "ipset" {
+  name               = "promo-cf-ipset"
+  description        = "Promo CloudFront IP Sets"
+  scope              = "CLOUDFRONT"
+  ip_address_version = "IPV4"
+  addresses          = var.promo_cf_ipsets
 }
 
 /*
