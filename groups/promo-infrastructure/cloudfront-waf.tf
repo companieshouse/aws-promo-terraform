@@ -85,6 +85,22 @@ module "promo_cf_waf" {
         name        = "AWSManagedRulesPHPRuleSet"
         vendor_name = "AWS"
       }
+    },
+    {
+      name     = "IpSetRule-4"
+      priority = "4"
+
+      action = "allow"
+
+      visibility_config = {
+        cloudwatch_metrics_enabled = false
+        metric_name                = "IpSetRule-metric"
+        sampled_requests_enabled   = false
+      }
+
+      ip_set_reference_statement = {
+        arn = aws_wafv2_ip_set.ipset.arn
+      }
     }
   ]
 
