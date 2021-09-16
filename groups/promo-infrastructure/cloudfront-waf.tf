@@ -27,7 +27,7 @@ module "promo_cf_waf" {
   scope                  = "CLOUDFRONT"
   create_alb_association = false
 
-  allow_default_action = true # set to allow if not specified
+  allow_default_action = false # set to allow if not specified
 
   visibility_config = {
     metric_name = "promo-cf-waf-main-metrics"
@@ -76,9 +76,9 @@ module "promo_cf_waf" {
       override_action = "none"
 
       visibility_config = {
-        cloudwatch_metrics_enabled = false
+        cloudwatch_metrics_enabled = true
         metric_name                = "AWSManagedRulesPHPRuleSet-metric"
-        sampled_requests_enabled   = false
+        sampled_requests_enabled   = true
       }
 
       managed_rule_group_statement = {
