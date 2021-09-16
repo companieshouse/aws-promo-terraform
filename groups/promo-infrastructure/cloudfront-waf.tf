@@ -15,7 +15,7 @@ resource "aws_wafv2_ip_set" "ipset" {
   addresses          = var.promo_cf_ipsets
 }
 
-module "cf_waf" {
+module "promo_cf_waf" {
   providers = {
     aws = aws.us-east
   }
@@ -23,7 +23,7 @@ module "cf_waf" {
   source  = "umotif-public/waf-webaclv2/aws"
   version = "~> 3.1.0"
 
-  name_prefix            = "test-waf-setup-cloudfront"
+  name_prefix            = "promo-cloudfront-waf"
   scope                  = "CLOUDFRONT"
   create_alb_association = false
 

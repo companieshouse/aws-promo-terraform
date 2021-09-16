@@ -92,4 +92,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     cloudfront_default_certificate = true
     minimum_protocol_version       = "TLSv1.2_2019"
   }
+
+  web_acl_id = module.promo_cf_waf.web_acl_arn
 }
