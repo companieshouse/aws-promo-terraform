@@ -93,5 +93,5 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     minimum_protocol_version       = "TLSv1.2_2019"
   }
 
-  web_acl_id = module.promo_cf_waf.web_acl_arn
+  web_acl_id = module.promo_cf_waf_ipset_rules.web_acl_arn
 }

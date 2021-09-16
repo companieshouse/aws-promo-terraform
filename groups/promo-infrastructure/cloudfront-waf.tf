@@ -15,7 +15,7 @@ resource "aws_wafv2_ip_set" "ipset" {
   addresses          = var.promo_cf_ipsets
 }
 
-module "promo_cf_waf" {
+module "promo_cf_waf_ipset_rules" {
   providers = {
     aws = aws.us-east
   }
@@ -23,14 +23,61 @@ module "promo_cf_waf" {
   source  = "umotif-public/waf-webaclv2/aws"
   version = "~> 3.1.0"
 
-  name_prefix            = "promo-cloudfront-waf"
+  name_prefix            = "promo-cloudfront-waf_ipset_rules"
   scope                  = "CLOUDFRONT"
   create_alb_association = false
 
   allow_default_action = false # set to allow if not specified
 
   visibility_config = {
-    metric_name = "promo-cf-waf-main-metrics"
+    cloudwatch_metrics_enabled = true
+    metric_name                = "promo-cf-waf-ipset-rules-main-metrics"
+    sampled_requests_enabled   = true
+  }
+
+  rules = [
+    {
+      name     = "IpSetRule-1"
+      priority = "1"
+
+      action = "allow"
+
+      visibility_config = {
+        cloudwatch_metrics_enabled = true
+        metric_name                = "IpSetRule-metric"
+        sampled_requests_enabled   = true
+      }
+
+      ip_set_reference_statement = {
+        arn = aws_wafv2_ip_set.ipset.arn
+      }
+    }
+  ]
+
+  tags = {
+    "Name" = "${var.application}-cf-waf-ipset-rules"
+    "Env"  = var.environment
+  }
+}
+
+module "promo_cf_waf_managed_rules" {
+  providers = {
+    aws = aws.us-east
+  }
+
+  source  = "umotif-public/waf-webaclv2/aws"
+  version = "~> 3.1.0"
+
+  name_prefix            = "promo-cloudfront-waf-managed-rules"
+  scope                  = "CLOUDFRONT"
+  create_alb_association = false
+
+  allow_default_action = true # set to allow if not specified
+
+  visibility_config = {
+    cloudwatch_metrics_enabled = true
+    metric_name                = "promo-cf-waf-managed-rules-main-metrics"
+    sampled_requests_enabled   = true
   }
 
   rules = [
@@ -38,10 +85,12 @@ module "promo_cf_waf" {
       name     = "AWSManagedRulesCommonRuleSet-rule-1"
       priority = "1"
 
-      override_action = "none"
+      override_action = "count"
 
       visibility_config = {
-        metric_name = "AWSManagedRulesCommonRuleSet-metric"
+        cloudwatch_metrics_enabled = true
+        metric_name                = "AWSManagedRulesCommonRuleSet-metric"
+        sampled_requests_enabled   = true
       }
 
       managed_rule_group_statement = {
@@ -55,57 +104,43 @@ module "promo_cf_waf" {
       }
     },
     {
-      name     = "AWSManagedRulesKnownBadInputsRuleSet-rule-2"
+      name     = "AWSManagedRulesAmazonIpReputationList-rule-2"
       priority = "2"
 
       override_action = "count"
 
       visibility_config = {
-        metric_name = "AWSManagedRulesKnownBadInputsRuleSet-metric"
-      }
-
-      managed_rule_group_statement = {
-        name        = "AWSManagedRulesKnownBadInputsRuleSet"
-        vendor_name = "AWS"
-      }
-    },
-    {
-      name     = "AWSManagedRulesPHPRuleSet-rule-3"
-      priority = "3"
-
-      override_action = "none"
-
-      visibility_config = {
         cloudwatch_metrics_enabled = true
-        metric_name                = "AWSManagedRulesPHPRuleSet-metric"
+        metric_name                = "AWSManagedRulesAmazonIpReputationList-metric"
         sampled_requests_enabled   = true
       }
 
       managed_rule_group_statement = {
-        name        = "AWSManagedRulesPHPRuleSet"
+        name        = "AWSManagedRulesAmazonIpReputationList"
         vendor_name = "AWS"
       }
     },
     {
-      name     = "IpSetRule-4"
-      priority = "4"
+      name     = "AWSManagedRulesAnonymousIpList-rule-3"
+      priority = "3"
 
-      action = "allow"
+      override_action = "count"
 
       visibility_config = {
-        cloudwatch_metrics_enabled = false
-        metric_name                = "IpSetRule-metric"
-        sampled_requests_enabled   = false
+        cloudwatch_metrics_enabled = true
+        metric_name                = "AWSManagedRulesAnonymousIpList-metric"
+        sampled_requests_enabled   = true
       }
 
-      ip_set_reference_statement = {
-        arn = aws_wafv2_ip_set.ipset.arn
+      managed_rule_group_statement = {
+        name        = "AWSManagedRulesAnonymousIpList"
+        vendor_name = "AWS"
       }
     }
   ]
 
   tags = {
-    "Name" = "${var.application}-cf-waf"
+    "Name" = "${var.application}-cf-waf-managed-rules"
     "Env"  = var.environment
   }
 }
