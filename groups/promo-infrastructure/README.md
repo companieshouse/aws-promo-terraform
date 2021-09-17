@@ -30,7 +30,6 @@
 | [aws_cloudfront_distribution.s3_distribution](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution) | resource |
 | [aws_s3_bucket_policy.s3_promo_web_hosting_bucket_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
 | [aws_wafv2_ip_set.ipset](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_ip_set) | resource |
-| [aws_acm_certificate.acm_cert](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/acm_certificate) | data source |
 
 ## Inputs
 
@@ -42,7 +41,6 @@
 | <a name="input_aws_profile"></a> [aws\_profile](#input\_aws\_profile) | The AWS profile to use | `string` | n/a | yes |
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | The AWS region in which resources will be administered | `string` | n/a | yes |
 | <a name="input_cloudfront-authentication-user-agent"></a> [cloudfront-authentication-user-agent](#input\_cloudfront-authentication-user-agent) | n/a | `string` | `"V3ryS3cretString"` | no |
-| <a name="input_domain_cert_name"></a> [domain\_cert\_name](#input\_domain\_cert\_name) | Domain Name for ACM Certificate | `string` | `"*.companieshouse.gov.uk"` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The name of the environment | `string` | n/a | yes |
 | <a name="input_promo_cf_ipsets"></a> [promo\_cf\_ipsets](#input\_promo\_cf\_ipsets) | Promo CloudFronti IP Sets for lower envs | `list(any)` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | Short version of the name of the AWS region in which resources will be administered | `string` | n/a | yes |

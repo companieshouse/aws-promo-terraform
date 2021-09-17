@@ -27,7 +27,7 @@ module "promo_cf_waf" {
   scope                  = "CLOUDFRONT"
   create_alb_association = false
 
-  allow_default_action = false # set to allow if not specified
+  allow_default_action = var.environment == "live" ? true : false
 
   visibility_config = {
     cloudwatch_metrics_enabled = true
