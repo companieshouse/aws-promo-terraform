@@ -23,7 +23,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   logging_config {
     include_cookies = false
-    bucket          = local.s3_promo_logs_bucket
+    bucket          = "${local.s3_promo_logs_bucket}.s3.amazonaws.com"
     prefix          = local.promo_cloudfront_logs_prefix
   }
 
