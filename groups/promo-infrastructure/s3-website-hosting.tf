@@ -53,7 +53,7 @@ module "s3_promo_web_hosting_bucket" {
 
 
   logging = {
-    target_bucket = "${local.s3_promo_logs_bucket}.s3.amazonaws.com"
+    target_bucket = local.s3_promo_logs_bucket
     target_prefix = "local.promo_s3_logs_prefix"
   }
 
