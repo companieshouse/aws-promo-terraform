@@ -8,14 +8,14 @@ provider "aws" {
 resource "aws_wafv2_ip_set" "ipset" {
   provider = aws.us-east
 
-  name               = "promo-cf-ipset"
+  name               = "${var.application}-cf-ipset"
   description        = "Promo CloudFront IP Sets"
   scope              = "CLOUDFRONT"
   ip_address_version = "IPV4"
   addresses          = var.promo_cf_ipsets
 }
 
-module "promo_cf_waf_ipset_rules" {
+module "promo_cf_waf" {
   providers = {
     aws = aws.us-east
   }
@@ -23,7 +23,7 @@ module "promo_cf_waf_ipset_rules" {
   source  = "umotif-public/waf-webaclv2/aws"
   version = "~> 3.1.0"
 
-  name_prefix            = "promo-cloudfront-waf_ipset_rules"
+  name_prefix            = "${var.application}-cloudfront-waf"
   scope                  = "CLOUDFRONT"
   create_alb_association = false
 
@@ -31,52 +31,7 @@ module "promo_cf_waf_ipset_rules" {
 
   visibility_config = {
     cloudwatch_metrics_enabled = true
-    metric_name                = "promo-cf-waf-ipset-rules-main-metrics"
-    sampled_requests_enabled   = true
-  }
-
-  rules = [
-    {
-      name     = "IpSetRule-1"
-      priority = "1"
-
-      action = "allow"
-
-      visibility_config = {
-        cloudwatch_metrics_enabled = true
-        metric_name                = "IpSetRule-metric"
-        sampled_requests_enabled   = true
-      }
-
-      ip_set_reference_statement = {
-        arn = aws_wafv2_ip_set.ipset.arn
-      }
-    }
-  ]
-
-  tags = {
-    "Name" = "${var.application}-cf-waf-ipset-rules"
-    "Env"  = var.environment
-  }
-}
-
-module "promo_cf_waf_managed_rules" {
-  providers = {
-    aws = aws.us-east
-  }
-
-  source  = "umotif-public/waf-webaclv2/aws"
-  version = "~> 3.1.0"
-
-  name_prefix            = "promo-cloudfront-waf-managed-rules"
-  scope                  = "CLOUDFRONT"
-  create_alb_association = false
-
-  allow_default_action = true # set to allow if not specified
-
-  visibility_config = {
-    cloudwatch_metrics_enabled = true
-    metric_name                = "promo-cf-waf-managed-rules-main-metrics"
+    metric_name                = "${var.application}-cf-waf-main-metrics"
     sampled_requests_enabled   = true
   }
 
@@ -136,11 +91,27 @@ module "promo_cf_waf_managed_rules" {
         name        = "AWSManagedRulesAnonymousIpList"
         vendor_name = "AWS"
       }
+    },
+    {
+      name     = "IpSetRule-4"
+      priority = "4"
+
+      action = "allow"
+
+      visibility_config = {
+        cloudwatch_metrics_enabled = true
+        metric_name                = "IpSetRule-metric"
+        sampled_requests_enabled   = true
+      }
+
+      ip_set_reference_statement = {
+        arn = aws_wafv2_ip_set.ipset.arn
+      }
     }
   ]
 
   tags = {
-    "Name" = "${var.application}-cf-waf-managed-rules"
+    "Name" = "${var.application}-cloudfront-waf"
     "Env"  = var.environment
   }
 }
