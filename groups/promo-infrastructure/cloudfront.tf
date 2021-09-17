@@ -99,7 +99,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     cloudfront_default_certificate = false
     acm_certificate_arn            = data.aws_acm_certificate.acm_cert.arn
     minimum_protocol_version       = "TLSv1.2_2019"
-    ssl_support_method             = "static-ip"
+    ssl_support_method             = "sni-only"
   }
 
   web_acl_id = module.promo_cf_waf.web_acl_arn
