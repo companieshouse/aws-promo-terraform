@@ -53,6 +53,8 @@ module "s3_promo_web_hosting_bucket" {
     target_bucket = local.s3_promo_logs_bucket
     target_prefix = "local.promo_s3_logs_prefix"
   }
+
+  depends_on = [module.cloudfront_logs]
 }
 
 # ------------------------------------------------------------------------------
