@@ -51,12 +51,14 @@ module "s3_promo_web_hosting_bucket" {
   ]
 */
 
+  /*
   logging = {
     target_bucket = local.s3_promo_logs_bucket
     target_prefix = "local.promo_s3_logs_prefix"
   }
 
   depends_on = [module.cloudfront_logs]
+  */
 }
 
 # ------------------------------------------------------------------------------
@@ -78,30 +80,6 @@ resource "aws_s3_bucket_policy" "s3_promo_web_hosting_bucket_policy" {
             "Condition": {
                 "StringEquals": {
                     "aws:UserAgent": "${var.cloudfront-authentication-user-agent}"
-                }
-            }
-
-        },
-        {
-            "Sid": "AWSLogDeliveryAclCheck",
-            "Effect": "Allow",
-            "Principal": {
-                "Service": "delivery.logs.amazonaws.com"
-            },
-            "Action": "s3:GetBucketAcl",
-            "Resource": "arn:aws:s3:::${local.s3_promo_web_hosting_bucket}"
-        },
-        {
-            "Sid": "AWSLogDeliveryWrite",
-            "Effect": "Allow",
-            "Principal": {
-                "Service": "delivery.logs.amazonaws.com"
-            },
-            "Action": "s3:PutObject",
-            "Resource": "arn:aws:s3:::${local.s3_promo_web_hosting_bucket}/*",
-            "Condition": {
-                "StringEquals": {
-                    "s3:x-amz-acl": "bucket-owner-full-control"
                 }
             }
 
