@@ -21,6 +21,12 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   comment             = "Promo CloudFront service"
   default_root_object = "index.html"
 
+  logging_config {
+    include_cookies = false
+    bucket          = local.s3_promo_logs_bucket
+    prefix          = local.promo_cloudfront_logs_prefix
+  }
+
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]

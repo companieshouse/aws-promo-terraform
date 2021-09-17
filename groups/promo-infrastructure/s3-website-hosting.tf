@@ -3,7 +3,7 @@ module "s3_promo_web_hosting_bucket" {
   version = "2.1.0"
 
   bucket = local.s3_promo_web_hosting_bucket
-  acl    = "private"
+  #acl    = "private"
 
   block_public_acls       = false
   block_public_policy     = false
@@ -39,6 +39,19 @@ module "s3_promo_web_hosting_bucket" {
   website = {
     index_document = "index.html"
     error_document = "error.html"
+  }
+
+  acl = null # Grant conflicts with default of `acl = "private"` so set to null to use grants
+  grant = [{
+    type        = "Group"
+    permissions = ["READ_ACP", "WRITE"]
+    uri         = "http://acs.amazonaws.com/groups/s3/LogDelivery"
+    }
+  ]
+
+  logging = {
+    target_bucket = local.s3_promo_logs_bucket
+    target_prefix = "local.promo_s3_logs_prefix"
   }
 }
 
