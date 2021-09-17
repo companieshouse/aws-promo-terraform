@@ -74,3 +74,9 @@ variable "promo_cf_ipsets" {
   type        = list(any)
   description = "Promo CloudFronti IP Sets for lower envs"
 }
+
+variable "domain_cert_name" {
+  type        = string
+  default     = "*.companieshouse.gov.uk"
+  description = "Domain Name for ACM Certificate"
+}

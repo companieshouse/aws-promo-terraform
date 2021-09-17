@@ -88,8 +88,16 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
   }
 
+  /*
   viewer_certificate {
     cloudfront_default_certificate = true
+    minimum_protocol_version       = "TLSv1.2_2019"
+  }
+*/
+
+  viewer_certificate {
+    cloudfront_default_certificate = false
+    acm_certificate_arn            = data.aws_acm_certificate.acm_cert.arn
     minimum_protocol_version       = "TLSv1.2_2019"
   }
 
