@@ -4,7 +4,6 @@ module "s3_promo_web_hosting_logs_bucket" {
 
   bucket        = local.s3_promo_web_hosting_logs_bucket
   attach_policy = "false"
-  #policy        = data.aws_iam_policy_document.s3_access_logs_bucket_policy.json
 
   block_public_acls       = true
   block_public_policy     = true
@@ -47,7 +46,6 @@ module "s3_promo_web_hosting_logs_bucket" {
 
   logging = {
     target_bucket = local.s3_promo_web_hosting_logs_bucket
-    #target_prefix = local.s3_access_logs_prefix
   }
 
   tags = {

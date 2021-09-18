@@ -41,20 +41,8 @@ module "s3_promo_web_hosting_bucket" {
     error_document = "error.html"
   }
 
-  /*
-  acl = null # Grant conflicts with default of `acl = "private"` so set to null to use grants
-  grant = [{
-    type        = "Group"
-    permissions = ["READ_ACP", "WRITE"]
-    uri         = "http://acs.amazonaws.com/groups/s3/LogDelivery"
-    }
-  ]
-*/
-
-
   logging = {
     target_bucket = local.s3_promo_web_hosting_logs_bucket
-    #target_prefix = local.promo_s3_logs_prefix
   }
 
   depends_on = [module.s3_promo_web_hosting_logs_bucket]
