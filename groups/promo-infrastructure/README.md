@@ -23,6 +23,7 @@
 | <a name="module_cloudfront_logs"></a> [cloudfront\_logs](#module\_cloudfront\_logs) | fmasuhr/cloudfront-logs/aws | 1.3.1 |
 | <a name="module_promo_cf_waf"></a> [promo\_cf\_waf](#module\_promo\_cf\_waf) | umotif-public/waf-webaclv2/aws | ~> 3.1.0 |
 | <a name="module_s3_promo_web_hosting_bucket"></a> [s3\_promo\_web\_hosting\_bucket](#module\_s3\_promo\_web\_hosting\_bucket) | terraform-aws-modules/s3-bucket/aws | 2.1.0 |
+| <a name="module_s3_promo_web_hosting_logs_bucket"></a> [s3\_promo\_web\_hosting\_logs\_bucket](#module\_s3\_promo\_web\_hosting\_logs\_bucket) | terraform-aws-modules/s3-bucket/aws | 2.1.0 |
 
 ## Resources
 
