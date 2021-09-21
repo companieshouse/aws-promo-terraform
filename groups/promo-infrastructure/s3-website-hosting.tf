@@ -39,6 +39,61 @@ module "s3_promo_web_hosting_bucket" {
   website = {
     index_document = "index.html"
     error_document = "error.html"
+
+    routing_rules = <<EOF
+[
+  {
+    "Condition": {
+        "KeyPrefixEquals": "arefiling/"
+    },
+    "Redirect": {
+        "HostName": "gov.uk",
+        "Protocol": "https",
+        "ReplaceKeyPrefixWith": "file-your-confirmation-statement-with-companies-house/"
+    }
+  },
+  {
+    "Condition": {
+        "KeyPrefixEquals": "promo/webincs/"
+    },
+    "Redirect": {
+        "HostName": "ewf.companieshouse.gov.uk",
+        "Protocol": "https",
+        "ReplaceKeyPrefixWith": "runpage?page=incOnlySCRSLogin"
+    }
+  },
+  {
+    "Condition": {
+        "KeyPrefixEquals": "freedominformation/freedominfo.shtml"
+    },
+    "Redirect": {
+        "HostName": "gov.uk",
+        "Protocol": "https",
+        "ReplaceKeyPrefixWith": "government/organisations/companies-house/about/personal-information-charter"
+    }
+  },
+  {
+    "Condition": {
+        "KeyPrefixEquals": "pressDesk/introduction.shtml"
+    },
+    "Redirect": {
+        "HostName": "gov.uk",
+        "Protocol": "https",
+        "ReplaceKeyPrefixWith": "government/organisations/companies-house/about/media-enquiries"
+    }
+  },
+  {
+    "Condition": {
+        "KeyPrefixEquals": "set-up-a-limited-company/"
+    },
+    "Redirect": {
+        "HostName": "ewf.companieshouse.gov.uk",
+        "Protocol": "https",
+        "ReplaceKeyPrefixWith": "runpage?page=incOnlySCRSLogin"
+    }
+  }
+]
+EOF
   }
 
   logging = {
