@@ -101,4 +101,11 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   web_acl_id = module.promo_cf_waf.web_acl_arn
 
   depends_on = [module.cloudfront_logs]
+
+  custom_error_response {
+    error_caching_min_ttl = 10
+    error_code            = 404
+    response_code         = 404
+    response_page_path    = "/errors/error404.html"
+  }
 }
