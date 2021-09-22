@@ -37,8 +37,8 @@ module "s3_promo_web_hosting_bucket" {
   ]
 
   website = {
-    index_document = "index.html"
-    error_document = "error.html"
+    index_document = "index.shtml"
+    error_document = "error.shtml"
 
     routing_rules = <<EOF
 [
