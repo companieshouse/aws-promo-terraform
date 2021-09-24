@@ -1,8 +1,8 @@
-module "s3_promo_web_hosting_logs_bucket" {
+module "cloudfront_logs_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "2.1.0"
 
-  bucket        = local.s3_promo_web_hosting_logs_bucket
+  bucket        = local.s3_promo_cf_logs_bucket
   attach_policy = "false"
 
   block_public_acls       = true
@@ -46,11 +46,11 @@ module "s3_promo_web_hosting_logs_bucket" {
   ]
 
   logging = {
-    target_bucket = local.s3_promo_web_hosting_logs_bucket
+    target_bucket = local.s3_promo_cf_logs_bucket
   }
 
   tags = {
-    "Name" = "${var.application}-s3-web-hosting-logs"
+    "Name" = "${var.application}-cf-logs"
     "Env"  = var.environment
   }
 }

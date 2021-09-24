@@ -29,7 +29,7 @@ module "s3_promo_web_hosting_logs_bucket" {
       id      = "LogRetention"
       enabled = true
       expiration = {
-        days = 365
+        days = 364
       }
       noncurrent_version_expiration = {
         days = 365

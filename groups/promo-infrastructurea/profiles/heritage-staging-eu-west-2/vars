@@ -1,0 +1,27 @@
+# Account details
+aws_profile = "heritage-staging-eu-west-2"
+aws_region  = "eu-west-2"
+aws_account = "heritage-staging"
+
+# shorthand
+account = "hstg"
+region  = "euw2"
+
+# Application details
+application = "promo"
+environment = "staging"
+
+# Promo CloudFronti IP Sets for lower envs
+promo_cf_ipsets = [
+  { ip = "194.75.36.0/24"},
+  { ip = "31.221.110.80/29"},
+  { ip = "62.254.241.64/26"},
+  { ip = "167.98.200.192/27"},
+  { ip = "5.148.69.16/28"},
+  { ip = "154.51.128.224/27"},
+  { ip = "167.98.1.160/28"},
+  { ip = "5.148.32.192/26"},
+  { ip = "195.95.131.0/24"},
+  { ip = "154.51.64.64/27"},
+  { ip = "167.98.25.176/28"}
+]
