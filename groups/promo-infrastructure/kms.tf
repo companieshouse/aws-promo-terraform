@@ -11,8 +11,6 @@ module "kms" {
 
   kmsadmin_principals            = lookup(each.value, "kmsadmin_principals", null)
   kmsuser_principals             = lookup(each.value, "kmsuser_principals", null)
-  key_usage_foreign_account_ids  = lookup(each.value, "key_usage_foreign_account_ids", null)
-  key_grant_foreign_account_ids  = lookup(each.value, "key_grant_foreign_account_ids", null)
   service_linked_role_principals = lookup(each.value, "service_linked_role_principals", null)
   service_principal_names        = lookup(each.value, "service_principal_names", null)
 

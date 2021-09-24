@@ -10,24 +10,12 @@ locals {
   security_s3                      = data.vault_generic_secret.security_s3.data
 
   kms_customer_master_keys = {
-    ssm = {
-      description             = "Session Manager data encryption key"
-      deletion_window_in_days = 30
-      enable_key_rotation     = true
-      is_enabled              = true
-      key_usage_foreign_account_ids = [
-        local.account_ids[var.aws_account]
-      ]
-    },
     promo = {
       description             = "Promo encryption key"
       deletion_window_in_days = 30
       enable_key_rotation     = true
       is_enabled              = true
-      key_usage_foreign_account_ids = [
-        local.account_ids[var.aws_account]
-      ]
-    },
+    }
   }
 
   default_tags = {
