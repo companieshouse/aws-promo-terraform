@@ -15,12 +15,14 @@
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 0.3, < 4.0 |
 | <a name="provider_aws.us-east"></a> [aws.us-east](#provider\_aws.us-east) | >= 0.3, < 4.0 |
+| <a name="provider_vault"></a> [vault](#provider\_vault) | >= 2.0.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cloudfront_logs"></a> [cloudfront\_logs](#module\_cloudfront\_logs) | fmasuhr/cloudfront-logs/aws | 1.3.1 |
+| <a name="module_cloudfront_logs_bucket"></a> [cloudfront\_logs\_bucket](#module\_cloudfront\_logs\_bucket) | terraform-aws-modules/s3-bucket/aws | 2.1.0 |
+| <a name="module_kms"></a> [kms](#module\_kms) | git@github.com:companieshouse/terraform-modules//aws/kms?ref=tags/1.0.55 |  |
 | <a name="module_promo_cf_waf"></a> [promo\_cf\_waf](#module\_promo\_cf\_waf) | umotif-public/waf-webaclv2/aws | ~> 3.1.0 |
 | <a name="module_s3_promo_web_hosting_bucket"></a> [s3\_promo\_web\_hosting\_bucket](#module\_s3\_promo\_web\_hosting\_bucket) | terraform-aws-modules/s3-bucket/aws | 2.1.0 |
 | <a name="module_s3_promo_web_hosting_logs_bucket"></a> [s3\_promo\_web\_hosting\_logs\_bucket](#module\_s3\_promo\_web\_hosting\_logs\_bucket) | terraform-aws-modules/s3-bucket/aws | 2.1.0 |
@@ -32,6 +34,10 @@
 | [aws_cloudfront_distribution.s3_distribution](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution) | resource |
 | [aws_s3_bucket_policy.s3_promo_web_hosting_bucket_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
 | [aws_wafv2_ip_set.ipset](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_ip_set) | resource |
+| [vault_generic_secret.kms](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/generic_secret) | resource |
+| [vault_generic_secret.s3](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/generic_secret) | resource |
+| [vault_generic_secret.account_ids](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |
+| [vault_generic_secret.security_s3](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/generic_secret) | data source |
 
 ## Inputs
 
@@ -44,6 +50,7 @@
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | The AWS region in which resources will be administered | `string` | n/a | yes |
 | <a name="input_cloudfront-authentication-user-agent"></a> [cloudfront-authentication-user-agent](#input\_cloudfront-authentication-user-agent) | n/a | `string` | `"V3ryS3cretString"` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The name of the environment | `string` | n/a | yes |
+| <a name="input_kms_customer_master_keys"></a> [kms\_customer\_master\_keys](#input\_kms\_customer\_master\_keys) | Map of KMS customer master keys and key policies to be created | `map(any)` | `{}` | no |
 | <a name="input_promo_cf_ipsets"></a> [promo\_cf\_ipsets](#input\_promo\_cf\_ipsets) | Promo CloudFronti IP Sets for lower envs | `list(any)` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | Short version of the name of the AWS region in which resources will be administered | `string` | n/a | yes |
 | <a name="input_vault_password"></a> [vault\_password](#input\_vault\_password) | Password for connecting to Vault - usually supplied through TF\_VARS | `string` | n/a | yes |
