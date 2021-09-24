@@ -30,6 +30,12 @@ variable "aws_account" {
   description = "The name of the AWS Account in which resources will be administered"
 }
 
+variable "kms_customer_master_keys" {
+  description = "Map of KMS customer master keys and key policies to be created"
+  type        = map(any)
+  default     = {}
+}
+
 # ------------------------------------------------------------------------------
 # AWS Variables - Shorthand
 # ------------------------------------------------------------------------------

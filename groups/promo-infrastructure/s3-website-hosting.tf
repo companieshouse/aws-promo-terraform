@@ -18,7 +18,8 @@ module "s3_promo_web_hosting_bucket" {
   server_side_encryption_configuration = {
     rule = {
       apply_server_side_encryption_by_default = {
-        sse_algorithm = "AES256"
+        kms_master_key_id = module.kms["promo"].key_arn
+        sse_algorithm     = "aws:kms"
       }
     }
   }
@@ -54,7 +55,7 @@ module "s3_promo_web_hosting_bucket" {
   },
   {
     "Condition": {
-        "KeyPrefixEquals": "promo/webincs/"
+        "KeyPrefixEquals": "promo/webincs"
     },
     "Redirect": {
         "HostName": "ewf.companieshouse.gov.uk",
