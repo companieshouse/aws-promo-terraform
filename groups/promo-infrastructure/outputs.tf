@@ -17,7 +17,7 @@ EOT
 }
 
 resource "vault_generic_secret" "kms" {
-  path = "aws-accounts/${var.aws_account}/kms"
+  path = "aws-accounts/${var.aws_account}/kms-promo"
 
   data_json = <<EOT
 {
