@@ -15,21 +15,11 @@ module "cloudfront_logs_bucket" {
     mfa_delete = false
   }
 
-  /*
   server_side_encryption_configuration = {
     rule = {
       apply_server_side_encryption_by_default = {
         kms_master_key_id = module.kms["promo"].key_arn
         sse_algorithm     = "aws:kms"
-      }
-    }
-  }
-*/
-
-  server_side_encryption_configuration = {
-    rule = {
-      apply_server_side_encryption_by_default = {
-        sse_algorithm = "AES256"
       }
     }
   }
