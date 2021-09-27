@@ -72,6 +72,18 @@ variable "cloudfront-authentication-user-agent" {
   default = "V3ryS3cretString"
 }
 
+variable "domain_cert_name" {
+  type        = string
+  default     = "*.companieshouse.gov.uk"
+  description = "Domain Name for ACM Certificate"
+}
+
+variable "domain_name" {
+  type        = string
+  default     = "companieshouse.gov.uk"
+  description = "Domain Name for ACM Certificate"
+}
+
 # ------------------------------------------------------------------------------
 # CloudFront WAF Variables
 # ------------------------------------------------------------------------------

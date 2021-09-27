@@ -26,6 +26,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     bucket          = "${local.s3_promo_cf_logs_bucket}.s3.amazonaws.com"
   }
 
+  aliases = ["${var.account}-resources.${var.domain_name}"]
+
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
@@ -85,7 +87,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     viewer_protocol_policy = "redirect-to-https"
   }
 
-  price_class = "PriceClass_200"
+  price_class = "PriceClass_100"
 
   restrictions {
     geo_restriction {
@@ -93,9 +95,18 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
   }
 
+  /*
   viewer_certificate {
     cloudfront_default_certificate = true
     minimum_protocol_version       = "TLSv1.2_2019"
+  }
+*/
+
+  viewer_certificate {
+    cloudfront_default_certificate = false
+    acm_certificate_arn            = data.aws_acm_certificate.acm_cert.arn
+    minimum_protocol_version       = "TLSv1.2_2019"
+    ssl_support_method             = "sni-only"
   }
 
   web_acl_id = module.promo_cf_waf.web_acl_arn
@@ -107,5 +118,12 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     error_code            = 404
     response_code         = 404
     response_page_path    = "/errors/error404.html"
+  }
+
+  custom_error_response {
+    error_caching_min_ttl = 10
+    error_code            = 500
+    response_code         = 500
+    response_page_path    = "/errors/error500.html"
   }
 }
