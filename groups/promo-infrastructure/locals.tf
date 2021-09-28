@@ -9,7 +9,7 @@ locals {
   security_s3                      = data.vault_generic_secret.security_s3.data
 
   kms_customer_master_keys = {
-    promo = {
+    promoa = {
       description             = "Promo encryption key"
       deletion_window_in_days = 30
       enable_key_rotation     = true
