@@ -21,7 +21,7 @@ resource "vault_generic_secret" "kms" {
 
   data_json = <<EOT
 {
-  "promo-kms-key-arn": "${module.kms["promo"].key_arn}"
+  "promo-kms-key-arn": "${module.kms["promoa"].key_arn}"
 }
 EOT
 }
