@@ -14,7 +14,8 @@ locals {
       deletion_window_in_days = 30
       enable_key_rotation     = true
       is_enabled              = true
-      service_principal_names = ["logs"]
+      #service_principal_names = ["logs"]
+      service_principal_names = ["delivery.logs"]
     }
   }
 
