@@ -26,7 +26,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     bucket          = "${local.s3_promo_cf_logs_bucket}.s3.amazonaws.com"
   }
 
-  aliases = ["${var.account}-resources.${var.domain_name}"]
+  aliases = var.environment == "live" ? ["resources.${var.domain_name}"] : ["${var.account}-resources.${var.domain_name}"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
