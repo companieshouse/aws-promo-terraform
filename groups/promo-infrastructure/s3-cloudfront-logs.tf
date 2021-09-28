@@ -18,7 +18,7 @@ module "cloudfront_logs_bucket" {
   server_side_encryption_configuration = {
     rule = {
       apply_server_side_encryption_by_default = {
-        kms_master_key_id = module.kms["promoa"].key_arn
+        kms_master_key_id = module.kms["promologs"].key_arn
         sse_algorithm     = "aws:kms"
       }
     }

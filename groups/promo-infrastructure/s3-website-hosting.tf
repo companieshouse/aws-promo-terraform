@@ -95,12 +95,6 @@ module "s3_promo_web_hosting_bucket" {
 ]
 EOF
   }
-
-  logging = {
-    target_bucket = local.s3_promo_web_hosting_logs_bucket
-  }
-
-  depends_on = [module.s3_promo_web_hosting_logs_bucket]
 }
 
 # ------------------------------------------------------------------------------
