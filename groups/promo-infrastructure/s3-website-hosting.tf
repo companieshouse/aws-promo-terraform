@@ -59,7 +59,7 @@ module "s3_promo_web_hosting_bucket" {
     "Redirect": {
         "HostName": "ewf.companieshouse.gov.uk",
         "Protocol": "https",
-        "ReplaceKeyPrefixWith": "runpage?page=incOnlySCRSLogin"
+        "ReplaceKeyPrefixWith": "/seclogin?lo=1"
     }
   },
   {
@@ -89,7 +89,7 @@ module "s3_promo_web_hosting_bucket" {
     "Redirect": {
         "HostName": "ewf.companieshouse.gov.uk",
         "Protocol": "https",
-        "ReplaceKeyPrefixWith": "runpage?page=incOnlySCRSLogin"
+        "ReplaceKeyPrefixWith": "/seclogin?lo=1"
     }
   }
 ]
