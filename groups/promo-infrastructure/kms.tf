@@ -12,7 +12,7 @@ module "kms" {
   kmsadmin_principals                = lookup(each.value, "kmsadmin_principals", null)
   kmsuser_principals                 = lookup(each.value, "kmsuser_principals", null)
   service_linked_role_principals     = lookup(each.value, "service_linked_role_principals", null)
-  service_principal_names_non_region = lookup(each.value, "service_principal_names", null)
+  service_principal_names_non_region = lookup(each.value, "service_principal_names_non_region", null)
 
   tags = merge(
     local.default_tags,
