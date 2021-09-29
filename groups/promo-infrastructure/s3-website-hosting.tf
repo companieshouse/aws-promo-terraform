@@ -54,16 +54,6 @@ module "s3_promo_web_hosting_bucket" {
   },
   {
     "Condition": {
-        "KeyPrefixEquals": "promo/webincs"
-    },
-    "Redirect": {
-        "HostName": "ewf.companieshouse.gov.uk",
-        "Protocol": "https",
-        "ReplaceKeyPrefixWith": "/seclogin?lo=1"
-    }
-  },
-  {
-    "Condition": {
         "KeyPrefixEquals": "freedominformation/freedominfo.shtml"
     },
     "Redirect": {
@@ -80,16 +70,6 @@ module "s3_promo_web_hosting_bucket" {
         "HostName": "gov.uk",
         "Protocol": "https",
         "ReplaceKeyPrefixWith": "government/organisations/companies-house/about/media-enquiries"
-    }
-  },
-  {
-    "Condition": {
-        "KeyPrefixEquals": "set-up-a-limited-company/"
-    },
-    "Redirect": {
-        "HostName": "ewf.companieshouse.gov.uk",
-        "Protocol": "https",
-        "ReplaceKeyPrefixWith": "/seclogin?lo=1"
     }
   }
 ]
