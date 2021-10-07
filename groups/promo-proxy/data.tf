@@ -42,6 +42,10 @@ data "aws_security_group" "nagios_shared" {
   }
 }
 
+data "aws_kms_key" "ebs" {
+  key_id = "alias/${var.account}/${var.region}/ebs"
+}
+
 # ------------------------------------------------------------------------------
 # Promo Proxy Frontend data
 # ------------------------------------------------------------------------------

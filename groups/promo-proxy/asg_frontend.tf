@@ -59,6 +59,7 @@ module "fe_asg" {
       volume_size = "25"
       volume_type = "gp2"
       encrypted   = true
+      kms_key_id  = data.aws_kms_key.ebs.arn
       iops        = 0
     },
   ]
