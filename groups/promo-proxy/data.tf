@@ -54,6 +54,10 @@ data "aws_kms_key" "ebs" {
   key_id = "alias/${var.account}/${var.region}/ebs"
 }
 
+data "aws_kms_key" "logs" {
+  key_id = "alias/${var.account}/${var.region}/logs"
+}
+
 # ------------------------------------------------------------------------------
 # Promo Proxy Frontend data
 # ------------------------------------------------------------------------------
