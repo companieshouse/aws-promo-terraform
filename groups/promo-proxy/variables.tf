@@ -1,4 +1,3 @@
-
 # ------------------------------------------------------------------------------
 # Vault Variables
 # ------------------------------------------------------------------------------
@@ -58,15 +57,9 @@ variable "environment" {
   description = "The name of the environment"
 }
 
-variable "domain_cert_name" {
-  type        = string
-  default     = "*.companieshouse.gov.uk"
-  description = "Domain Name for ACM Certificate"
-}
-
 variable "domain_name" {
   type        = string
-  default     = "companieshouse.gov.uk"
+  default     = "*.companieshouse.gov.uk"
   description = "Domain Name for ACM Certificate"
 }
 
@@ -77,41 +70,55 @@ variable "public_allow_cidr_blocks" {
 }
 
 # ------------------------------------------------------------------------------
-# ALB variables
+# Promo Proxy Frontend Variables - ALB 
 # ------------------------------------------------------------------------------
-variable "ebilling_service_port" {
+
+variable "fe_service_port" {
   type        = number
-  default     = 8085
-  description = "Ebilling Target group backend port"
+  default     = 80
+  description = "Target group backend port"
 }
 
-variable "epayments_service_port" {
-  type        = number
-  default     = 9000
-  description = "Epayments Target group backend port"
-}
-
-variable "health_check_path" {
+variable "fe_health_check_path" {
   type        = string
   default     = "/"
   description = "Target group health check path"
 }
 
-variable "ebilling_server_ip" {
-  type        = string
-  default     = "172.16.200.179"
-  description = "Ebilling target server IP Address"
+variable "fe_default_log_group_retention_in_days" {
+  type        = number
+  default     = 14
+  description = "Total days to retain logs in CloudWatch log group if not specified for specific logs"
 }
 
-variable "epayments_live_server_ip" {
+variable "fe_ami_name" {
   type        = string
-  default     = "172.16.200.174"
-  description = "Epayments live target server IP Address"
+  default     = "promo-proxy-*"
+  description = "Name of the AMI to use in the Auto Scaling configuration for frontend server(s)"
 }
 
-variable "epayments_test_server_ip" {
+variable "fe_instance_size" {
   type        = string
-  default     = "172.16.200.173"
-  description = "Epayments test target server IP Address"
+  description = "The size of the ec2 instances to build"
 }
 
+variable "fe_min_size" {
+  type        = number
+  description = "The min size of the ASG"
+}
+
+variable "fe_max_size" {
+  type        = number
+  description = "The max size of the ASG"
+}
+
+variable "fe_desired_capacity" {
+  type        = number
+  description = "The desired capacity of ASG"
+}
+
+variable "fe_cw_logs" {
+  type        = map(any)
+  description = "Map of log file information; used to create log groups, IAM permissions and passed to the application to configure remote logging"
+  default     = {}
+}
