@@ -79,3 +79,21 @@ data "aws_ami" "promo_proxy_fe" {
     ]
   }
 }
+
+data "template_file" "fe_userdata" {
+  template = file("${path.module}/templates/fe_user_data.tpl")
+
+  vars = {
+    ANSIBLE_INPUTS = jsonencode(local.promo_proxy_fe_ansible_inputs)
+  }
+}
+
+data "template_cloudinit_config" "fe_userdata_config" {
+  gzip          = true
+  base64_encode = true
+
+  part {
+    content_type = "text/x-shellscript"
+    content      = data.template_file.fe_userdata.rendered
+  }
+}

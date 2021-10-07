@@ -81,6 +81,7 @@ module "fe_asg" {
   termination_policies           = ["OldestLaunchConfiguration"]
   target_group_arns              = module.promo_proxy_external_alb.target_group_arns
   iam_instance_profile           = module.promo_proxy_fe_profile.aws_iam_instance_profile.name
+  user_data_base64               = data.template_cloudinit_config.fe_userdata_config.rendered
 
   tags_as_map = merge(
     local.default_tags,
