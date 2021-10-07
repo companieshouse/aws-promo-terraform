@@ -6,6 +6,7 @@ locals {
   promo_proxy_ec2_data = data.vault_generic_secret.promo_proxy_ec2_data.data
 
   security_kms_keys_data = data.vault_generic_secret.security_kms_keys.data
+  logs_kms_key_id        = local.security_kms_keys_data["cloudtrail-kms-key-arn"]
   ssm_kms_key_id         = local.security_kms_keys_data["session-manager-kms-key-arn"]
 
   security_s3_data            = data.vault_generic_secret.security_s3_buckets.data
