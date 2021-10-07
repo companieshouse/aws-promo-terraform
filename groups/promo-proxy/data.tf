@@ -15,6 +15,14 @@ data "aws_subnet_ids" "public" {
   }
 }
 
+data "aws_subnet_ids" "endpoint" {
+  vpc_id = data.aws_vpc.vpc.id
+  filter {
+    name   = "tag:Name"
+    values = ["sub-endpoint-*"]
+  }
+}
+
 data "vault_generic_secret" "account_ids" {
   path = "aws-accounts/account-ids"
 }
