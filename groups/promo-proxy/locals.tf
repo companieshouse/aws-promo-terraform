@@ -19,6 +19,11 @@ locals {
 
   fe_log_groups = compact([for log, map in local.fe_cw_logs : lookup(map, "log_group_name", "")])
 
+  promo_proxy_fe_ansible_inputs = {
+    cw_log_files  = local.fe_cw_logs
+    cw_agent_user = "root"
+  }
+
   default_tags = {
     Terraform   = "true"
     Application = upper(var.application)
