@@ -84,6 +84,7 @@ data "template_file" "fe_userdata" {
   template = file("${path.module}/templates/fe_user_data.tpl")
 
   vars = {
+    REGION         = var.aws_region
     ANSIBLE_INPUTS = jsonencode(local.promo_proxy_fe_ansible_inputs)
   }
 }
