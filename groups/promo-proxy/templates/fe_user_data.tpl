@@ -12,5 +12,5 @@ rm /etc/httpd/conf.d/welcome.conf
 echo '${ANSIBLE_INPUTS}' > /root/ansible_inputs.json
 /usr/local/bin/ansible-playbook /root/deployment.yml -e '@/root/ansible_inputs.json'
 
-#Disable selinux for github proxy
-setenforce 0
+#Enable network proxy forwarding for github proxy
+setsebool -P httpd_can_network_relay on
