@@ -17,7 +17,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   origin {
-    domain_name = "192.168.90.20"
+    domain_name = "resources.companieshouse.gov.uk"
     origin_id   = "tstww"
 
     custom_origin_config {
