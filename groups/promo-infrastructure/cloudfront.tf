@@ -16,18 +16,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
   }
 
-  origin {
-    domain_name = "resources.companieshouse.gov.uk"
-    origin_id   = "tstww"
-
-    custom_origin_config {
-      http_port              = 80
-      https_port             = 443
-      origin_protocol_policy = "match-viewer"
-      origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
-    }
-  }
-
   enabled             = true
   is_ipv6_enabled     = true
   comment             = "Promo CloudFront service"
@@ -106,13 +94,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
       restriction_type = "none"
     }
   }
-
-  /*
-  viewer_certificate {
-    cloudfront_default_certificate = true
-    minimum_protocol_version       = "TLSv1.2_2019"
-  }
-*/
 
   viewer_certificate {
     cloudfront_default_certificate = false
