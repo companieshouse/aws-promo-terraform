@@ -11,6 +11,3 @@ rm /etc/httpd/conf.d/welcome.conf
 #Run Ansible playbook for server setup using provided inputs
 echo '${ANSIBLE_INPUTS}' > /root/ansible_inputs.json
 /usr/local/bin/ansible-playbook /root/deployment.yml -e '@/root/ansible_inputs.json'
-
-#Enable network proxy forwarding for github proxy
-setsebool -P httpd_can_network_relay on
