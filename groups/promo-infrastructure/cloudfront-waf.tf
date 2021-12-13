@@ -107,6 +107,23 @@ module "promo_cf_waf" {
       ip_set_reference_statement = {
         arn = aws_wafv2_ip_set.ipset.arn
       }
+    },
+    {
+      name     = "AWSManagedRulesKnownBadInputsRuleSet-rule-5"
+      priority = "5"
+
+      override_action = "count"
+
+      visibility_config = {
+        cloudwatch_metrics_enabled = true
+        metric_name                = "AWSManagedRulesKnownBadInputsRuleSet-metric"
+        sampled_requests_enabled   = true
+      }
+
+      managed_rule_group_statement = {
+        name        = "AWSManagedRulesKnownBadInputsRuleSet"
+        vendor_name = "AWS"
+      }
     }
   ]
 
