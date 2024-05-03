@@ -51,10 +51,6 @@ module "cloudfront_logs_bucket" {
     }
   ]
 
-  logging = {
-    target_bucket = local.s3_promo_cf_logs_bucket
-  }
-
   tags = {
     "Name" = "${var.application}-cf-logs"
     "Env"  = var.environment
