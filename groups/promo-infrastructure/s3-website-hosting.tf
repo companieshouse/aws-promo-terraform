@@ -104,11 +104,3 @@ resource "aws_s3_bucket_policy" "s3_promo_web_hosting_bucket_policy" {
 }
 POLICY
 }
-
-module "s3_access_logging" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/s3_access_logging?ref=tags/1.0.262"
-
-  aws_account         = var.aws_account
-  aws_region          = var.aws_region
-  source_s3_bucket_id = module.s3_promo_web_hosting_bucket.s3_bucket_id
-}
