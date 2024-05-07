@@ -30,3 +30,23 @@ provider "vault" {
     }
   }
 }
+
+####################################################################################################
+## S3 access logging
+####################################################################################################
+
+module "s3_access_logging_website" {
+  source = "git@github.com:companieshouse/terraform-modules//aws/s3_access_logging?ref=tags/1.0.264"
+
+  aws_account           = var.aws_account
+  aws_region            = var.aws_region
+  source_s3_bucket_name = local.s3_promo_web_hosting_bucket
+}
+
+module "s3_access_logging_cloudfront" {
+  source = "git@github.com:companieshouse/terraform-modules//aws/s3_access_logging?ref=tags/1.0.264"
+
+  aws_account           = var.aws_account
+  aws_region            = var.aws_region
+  source_s3_bucket_name = local.s3_promo_cf_logs_bucket
+}
