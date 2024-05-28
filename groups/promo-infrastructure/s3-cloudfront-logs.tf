@@ -1,6 +1,6 @@
 module "cloudfront_logs_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "2.1.0"
+  version = "3.0.1"
 
   bucket        = local.s3_promo_cf_logs_bucket
   attach_policy = "false"
@@ -41,12 +41,17 @@ module "cloudfront_logs_bucket" {
   grant = [
     {
       type        = "Group"
-      permissions = ["READ_ACP", "WRITE"]
+      permission  = "READ_ACP"
+      uri         = "http://acs.amazonaws.com/groups/s3/LogDelivery"
+    },
+    {
+      type        = "Group"
+      permission  = "WRITE"
       uri         = "http://acs.amazonaws.com/groups/s3/LogDelivery"
     },
     {
       type        = "CanonicalUser"
-      permissions = ["FULL_CONTROL"]
+      permission  = "FULL_CONTROL"
       id          = "c4c1ede66af53448b93c283ce9448c4ba468c9432aa01d700d3878632f77d2d0"
     }
   ]

@@ -1,6 +1,6 @@
 module "s3_promo_web_hosting_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "2.1.0"
+  version = "3.0.1"
 
   bucket = local.s3_promo_web_hosting_bucket
   acl    = "private"
@@ -40,40 +40,41 @@ module "s3_promo_web_hosting_bucket" {
     index_document = "index.shtml"
     error_document = "error.shtml"
 
-    routing_rules = <<EOF
-[
-  {
-    "Condition": {
-        "KeyPrefixEquals": "arefiling/"
-    },
-    "Redirect": {
-        "HostName": "gov.uk",
-        "Protocol": "https",
-        "ReplaceKeyPrefixWith": "file-your-confirmation-statement-with-companies-house/"
-    }
-  },
-  {
-    "Condition": {
-        "KeyPrefixEquals": "freedominformation/freedominfo.shtml"
-    },
-    "Redirect": {
-        "HostName": "gov.uk",
-        "Protocol": "https",
-        "ReplaceKeyPrefixWith": "government/organisations/companies-house/about/personal-information-charter"
-    }
-  },
-  {
-    "Condition": {
-        "KeyPrefixEquals": "pressDesk/introduction.shtml"
-    },
-    "Redirect": {
-        "HostName": "gov.uk",
-        "Protocol": "https",
-        "ReplaceKeyPrefixWith": "government/organisations/companies-house/about/media-enquiries"
-    }
-  }
-]
-EOF
+    routing_rules = [
+      {
+        condition = {
+          key_prefix_equals = "arefiling/"
+        }
+
+        redirect = {
+          hostname                = "gov.uk"
+          protocol                = "https"
+          replace_key_prefix_with = "file-your-confirmation-statement-with-companies-house/"
+        }
+      },
+      {
+        condition = {
+          key_prefix_equals = "freedominformation/freedominfo.shtml"
+        }
+        
+        redirect = {
+          hostname                = "gov.uk"
+          protocol                = "https"
+          replace_key_prefix_with = "government/organisations/companies-house/about/personal-information-charter"
+        }
+      },
+      {
+        condition = {
+          key_prefix_equals = "pressDesk/introduction.shtml"
+        }
+
+        redirect = {
+          hostname                = "gov.uk"
+          protocol                = "https"
+          replace_key_prefix_with = "government/organisations/companies-house/about/media-enquiries"
+        }
+      }
+    ]
   }
 }
 
