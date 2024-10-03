@@ -61,3 +61,40 @@ module "cloudfront_logs_bucket" {
     "Env"  = var.environment
   }
 }
+
+# -----------------------------------------------------------------
+# Create allow_ssl_requests_only policy for s3_promo_cf_logs_bucket
+# -----------------------------------------------------------------
+
+resource "aws_s3_bucket_policy" "ssm_logs_bucket_allow_ssl_only" {
+  bucket = module.cloudfront_logs_bucket.s3_bucket_id
+  policy = data.aws_iam_policy_document.ssm_logs_bucket_allow_ssl_only.json
+}
+
+data "aws_iam_policy_document" "ssm_logs_bucket_allow_ssl_only" {
+
+  statement {
+    sid = "allow_ssl_requests_only"
+    effect = "Deny"
+
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+
+    actions = [
+      "s3:*"
+    ]
+
+    resources = [
+      "arn:aws:s3:::${local.s3_promo_cf_logs_bucket}",
+      "arn:aws:s3:::${local.s3_promo_cf_logs_bucket}/*"
+    ]
+
+    condition {
+      test     = "Bool"
+      variable = "aws:SecureTransport"
+      values   = ["false"]
+    }
+  }
+}
