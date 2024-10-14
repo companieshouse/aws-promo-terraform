@@ -100,6 +100,21 @@ resource "aws_s3_bucket_policy" "s3_promo_web_hosting_bucket_policy" {
                 }
             }
 
+        },
+        {
+            "Sid": "AllowSSLRequestsOnly",
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::${local.s3_promo_web_hosting_bucket}",
+                "arn:aws:s3:::${local.s3_promo_web_hosting_bucket}/*"
+            ],
+            "Condition": {
+                "Bool": {
+                    "aws:SecureTransport": "false"
+                }
+            }
         }
     ]
 }
