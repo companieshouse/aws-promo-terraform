@@ -54,7 +54,7 @@ resource "aws_s3_bucket_policy" "s3_promo_web_hosting_bucket_policy" {
                 "Service": "cloudfront.amazonaws.com"
             },
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::heritage-development.eu-west-2.promo-resources.ch.gov.uk/*",
+            "Resource": "arn:aws:s3:::${local.s3_promo_web_hosting_bucket}/*",
             "Condition": {
                 "StringEquals": {
                   "AWS:SourceArn": "${aws_cloudfront_distribution.s3_distribution.arn}"
