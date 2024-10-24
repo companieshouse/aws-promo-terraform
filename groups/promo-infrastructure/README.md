@@ -5,15 +5,15 @@
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0, < 0.14 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 0.3, < 4.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 1.4 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 0.3, < 6.0 |
 | <a name="requirement_vault"></a> [vault](#requirement\_vault) | >= 2.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 0.3, < 4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 0.3, < 6.0 |
 | <a name="provider_aws.acm_provider"></a> [aws.acm\_provider](#provider\_aws.acm\_provider) | >= 0.3, < 4.0 |
 | <a name="provider_aws.us-east"></a> [aws.us-east](#provider\_aws.us-east) | >= 0.3, < 4.0 |
 | <a name="provider_vault"></a> [vault](#provider\_vault) | >= 2.0.0 |
@@ -22,10 +22,10 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cloudfront_logs_bucket"></a> [cloudfront\_logs\_bucket](#module\_cloudfront\_logs\_bucket) | terraform-aws-modules/s3-bucket/aws | 2.1.0 |
-| <a name="module_kms"></a> [kms](#module\_kms) | git@github.com:companieshouse/terraform-modules//aws/kms?ref=tags/1.0.81 |  |
-| <a name="module_promo_cf_waf"></a> [promo\_cf\_waf](#module\_promo\_cf\_waf) | umotif-public/waf-webaclv2/aws | ~> 3.1.0 |
-| <a name="module_s3_promo_web_hosting_bucket"></a> [s3\_promo\_web\_hosting\_bucket](#module\_s3\_promo\_web\_hosting\_bucket) | terraform-aws-modules/s3-bucket/aws | 2.1.0 |
+| <a name="module_cloudfront_logs_bucket"></a> [cloudfront\_logs\_bucket](#module\_cloudfront\_logs\_bucket) | terraform-aws-modules/s3-bucket/aws | 4.2.1 |
+| <a name="module_kms"></a> [kms](#module\_kms) | git@github.com:companieshouse/terraform-modules//aws/kms?ref=tags/1.0.293 |  |
+| <a name="module_promo_cf_waf"></a> [promo\_cf\_waf](#module\_promo\_cf\_waf) | umotif-public/waf-webaclv2/aws | ~> 5.1.2 |
+| <a name="module_s3_promo_web_hosting_bucket"></a> [s3\_promo\_web\_hosting\_bucket](#module\_s3\_promo\_web\_hosting\_bucket) | terraform-aws-modules/s3-bucket/aws | 4.2.1 |
 
 ## Resources
 
@@ -48,7 +48,6 @@
 | <a name="input_aws_account"></a> [aws\_account](#input\_aws\_account) | The name of the AWS Account in which resources will be administered | `string` | n/a | yes |
 | <a name="input_aws_profile"></a> [aws\_profile](#input\_aws\_profile) | The AWS profile to use | `string` | n/a | yes |
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | The AWS region in which resources will be administered | `string` | n/a | yes |
-| <a name="input_cloudfront-authentication-user-agent"></a> [cloudfront-authentication-user-agent](#input\_cloudfront-authentication-user-agent) | n/a | `string` | `"V3ryS3cretString"` | no |
 | <a name="input_domain_cert_name"></a> [domain\_cert\_name](#input\_domain\_cert\_name) | Domain Name for ACM Certificate | `string` | `"*.companieshouse.gov.uk"` | no |
 | <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | Domain Name for ACM Certificate | `string` | `"companieshouse.gov.uk"` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The name of the environment | `string` | n/a | yes |

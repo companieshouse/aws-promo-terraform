@@ -68,10 +68,6 @@ variable "environment" {
 # CloudFront Variables
 # ------------------------------------------------------------------------------
 
-variable "cloudfront-authentication-user-agent" {
-  default = "V3ryS3cretString"
-}
-
 variable "domain_cert_name" {
   type        = string
   default     = "*.companieshouse.gov.uk"
@@ -90,5 +86,5 @@ variable "domain_name" {
 
 variable "promo_cf_ipsets" {
   type        = list(any)
-  description = "Promo CloudFronti IP Sets for lower envs"
+  description = "Promo CloudFront IP Sets for lower envs"
 }

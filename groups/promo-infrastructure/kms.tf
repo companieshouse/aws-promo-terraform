@@ -1,7 +1,7 @@
 module "kms" {
   for_each = merge(var.kms_customer_master_keys, local.kms_customer_master_keys)
 
-  source = "git@github.com:companieshouse/terraform-modules//aws/kms?ref=tags/1.0.81"
+  source = "git@github.com:companieshouse/terraform-modules//aws/kms?ref=tags/1.0.293"
 
   kms_key_alias           = "${var.account}/${var.region}/${each.key}"
   description             = lookup(each.value, "description", "${var.account}/${var.region}/${each.key}")
@@ -16,9 +16,9 @@ module "kms" {
 
   tags = merge(
     local.default_tags,
-    map(
-      "Account", var.aws_account,
-      "ServiceTeam", "Platform"
-    )
+    {
+      "Account"     = var.aws_account,
+      "ServiceTeam" = "Platform"
+    }
   )
 }

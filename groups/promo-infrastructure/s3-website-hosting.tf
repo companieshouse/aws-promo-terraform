@@ -1,14 +1,14 @@
 module "s3_promo_web_hosting_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.0.1"
+  version = "4.2.1"
 
   bucket = local.s3_promo_web_hosting_bucket
   acl    = "private"
 
-  block_public_acls       = false
-  block_public_policy     = false
-  ignore_public_acls      = false
-  restrict_public_buckets = false
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 
   versioning = {
     enabled    = true
@@ -35,47 +35,6 @@ module "s3_promo_web_hosting_bucket" {
       }
     }
   ]
-
-  website = {
-    index_document = "index.shtml"
-    error_document = "error.shtml"
-
-    routing_rules = [
-      {
-        condition = {
-          key_prefix_equals = "arefiling/"
-        }
-
-        redirect = {
-          hostname                = "gov.uk"
-          protocol                = "https"
-          replace_key_prefix_with = "file-your-confirmation-statement-with-companies-house/"
-        }
-      },
-      {
-        condition = {
-          key_prefix_equals = "freedominformation/freedominfo.shtml"
-        }
-        
-        redirect = {
-          hostname                = "gov.uk"
-          protocol                = "https"
-          replace_key_prefix_with = "government/organisations/companies-house/about/personal-information-charter"
-        }
-      },
-      {
-        condition = {
-          key_prefix_equals = "pressDesk/introduction.shtml"
-        }
-
-        redirect = {
-          hostname                = "gov.uk"
-          protocol                = "https"
-          replace_key_prefix_with = "government/organisations/companies-house/about/media-enquiries"
-        }
-      }
-    ]
-  }
 }
 
 # ------------------------------------------------------------------------------
@@ -89,17 +48,18 @@ resource "aws_s3_bucket_policy" "s3_promo_web_hosting_bucket_policy" {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "PublicReadGetObject",
+            "Sid": "AllowCloudFrontServicePrincipal",
             "Effect": "Allow",
-            "Principal": "*",
+            "Principal": {
+                "Service": "cloudfront.amazonaws.com"
+            },
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::${local.s3_promo_web_hosting_bucket}/*",
+            "Resource": "arn:aws:s3:::heritage-development.eu-west-2.promo-resources.ch.gov.uk/*",
             "Condition": {
                 "StringEquals": {
-                    "aws:UserAgent": "${var.cloudfront-authentication-user-agent}"
+                  "AWS:SourceArn": "${aws_cloudfront_distribution.s3_distribution.arn}"
                 }
             }
-
         },
         {
             "Sid": "AllowSSLRequestsOnly",
