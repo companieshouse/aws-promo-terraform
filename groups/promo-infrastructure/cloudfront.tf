@@ -1,19 +1,8 @@
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = module.s3_promo_web_hosting_bucket.s3_bucket_website_endpoint
-    origin_id   = local.s3_origin_id
-
-    custom_origin_config {
-      http_port              = "80"
-      https_port             = "443"
-      origin_protocol_policy = "http-only"
-      origin_ssl_protocols   = ["TLSv1.2"]
-    }
-
-    custom_header {
-      name  = "User-Agent"
-      value = var.cloudfront-authentication-user-agent
-    }
+    domain_name              = module.s3_promo_web_hosting_bucket.s3_bucket_bucket_regional_domain_name
+    origin_id                = local.s3_origin_id
+    origin_access_control_id = aws_cloudfront_origin_access_control.promo.id
   }
 
   enabled             = true
@@ -41,6 +30,11 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
       }
     }
 
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.gov_uk_redirect.arn
+    }
+
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
     default_ttl            = 3600
@@ -59,6 +53,11 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
       cookies {
         forward = "none"
       }
+    }
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.gov_uk_redirect.arn
     }
 
     min_ttl                = 0
@@ -119,4 +118,20 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     response_code         = 500
     response_page_path    = "/errors/error500.html"
   }
+}
+
+resource "aws_cloudfront_origin_access_control" "promo" {
+  name                              = "promo-${var.aws_account}-control"
+  description                       = "Origin access control for access to promo assets in S3 bucket"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
+}
+
+resource "aws_cloudfront_function" "gov_uk_redirect" {
+  name    = "promo-${var.aws_account}-gov-uk-redirect"
+  runtime = "cloudfront-js-2.0"
+  comment = "Return a 301 redirect to a gov.uk URL for specific client request paths"
+  publish = true
+  code    = file("${path.module}/functions/gov_uk_redirect.js")
 }

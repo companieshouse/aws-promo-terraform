@@ -4,7 +4,6 @@ provider "aws" {
   region = "us-east-1"
 }
 
-
 resource "aws_wafv2_ip_set" "ipset" {
   provider = aws.us-east
 
@@ -21,7 +20,7 @@ module "promo_cf_waf" {
   }
 
   source  = "umotif-public/waf-webaclv2/aws"
-  version = "~> 3.1.0"
+  version = "~> 5.1.2"
 
   name_prefix            = "${var.application}-cloudfront-waf"
   scope                  = "CLOUDFRONT"
