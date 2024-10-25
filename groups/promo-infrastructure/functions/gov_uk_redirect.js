@@ -30,7 +30,7 @@ async function handler(event) {
         headers: {
             'location': { 'value': gov_uk_prefix + uri }
         }
-    }
+    };
 
     return response;
 }
