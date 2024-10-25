@@ -15,11 +15,12 @@ async function handler(event) {
     } else if (uri.startsWith(press_desk_uri_prefix)) {
         uri = uri.replace(press_desk_uri_prefix, '/government/organisations/companies-house/about/media-enquiries/');
     } else if (uri.endsWith('/')) {
-        // Append default index file name to request
         request.uri += 'index.shtml';
         return request;
+    } else if (!uri.includes('.')) {
+        request.uri += '/index.shtml';
+        return request;
     } else {
-        // Proceed with request; do not generate a redirect
         return request;
     }
 
