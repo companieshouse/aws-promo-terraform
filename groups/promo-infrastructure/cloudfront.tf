@@ -55,11 +55,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
       }
     }
 
-    function_association {
-      event_type   = "viewer-request"
-      function_arn = aws_cloudfront_function.gov_uk_redirect.arn
-    }
-
     min_ttl                = 0
     default_ttl            = 0
     max_ttl                = 0
