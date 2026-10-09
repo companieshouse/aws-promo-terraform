@@ -22,19 +22,6 @@ module "s3_promo_web_hosting_bucket" {
       }
     }
   }
-
-  lifecycle_rule = [
-    {
-      id      = "LogRetention"
-      enabled = true
-      expiration = {
-        days = 365
-      }
-      noncurrent_version_expiration = {
-        days = 365
-      }
-    }
-  ]
 }
 
 # ------------------------------------------------------------------------------
