@@ -6,6 +6,9 @@ aws_account = "shared-services"
 account = "shared"
 region  = "euw2"
 
+# Set to false to destroy all promo proxy resources
+deploy_promo_proxy = false
+
 # Application details
 application = "promo-proxy"
 environment = "shared-services"
