@@ -1,3 +1,9 @@
+variable "deploy_promo_proxy" {
+  type        = bool
+  description = "Whether the promo proxy resources should exist; set to false to destroy them"
+  default     = true
+}
+
 # ------------------------------------------------------------------------------
 # Vault Variables
 # ------------------------------------------------------------------------------
